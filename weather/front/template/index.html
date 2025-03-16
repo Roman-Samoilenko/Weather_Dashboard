@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Погодный Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+<header class="header">
+    <h1> Погодный Dashboard</h1>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <form class="weather-form">
+            <div class="form-group">
+                <input type="text"
+                       id="city"
+                       placeholder="Введите город"
+                       required>
+                <select id="source">
+                    <option value="openweather">OpenWeather</option>
+                    <option value="pogoda.mail.ru">pogoda.mail.ru</option>
+                </select>
+            </div>
+            <button type="submit">Поиск по городу </button>
+        </form>
+
+        <div class="weather-card hidden">
+            <div class="weather-header">
+                <h2 class="city-name"></h2>
+                <div class="weather-main">
+                    <img class="weather-icon" src="" alt="Иконка погоды">
+                    <span class="weather-description"></span>
+                </div>
+            </div>
+
+            <div class="weather-grid">
+                <div class="weather-item">
+                    <img src="../image/thermometer.png" alt="Температура">
+                    <div>
+                        <span class="temperature"></span>
+                        <span class="feels-like"></span>
+                    </div>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/wind.png" alt="Ветер">
+                    <div>
+                        <span class="wind"></span>
+                        <span class="wind-direction"></span>
+                    </div>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/humidity.png" alt="Влажность">
+                    <span class="humidity"></span>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/pressure.png" alt="Давление">
+                    <span class="pressure"></span>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/visibility.png" alt="Видимость">
+                    <span class="visibility"></span>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/sunrise.png" alt="Восход">
+                    <span class="sunrise"></span>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/sunset.png" alt="Закат">
+                    <span class="sunset"></span>
+                </div>
+
+                <div class="weather-item">
+                    <img src="../image/clouds.png" alt="Облака">
+                    <span class="clouds"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <a href="https://github.com/Roman-Samoilenko" class="stylish-link"><span>© Погодный сервис | Roman Samoilenko </span></a>
+</footer>
+
+<script src="../script/script.js"></script>
+</body>
+</html>
