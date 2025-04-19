@@ -141,48 +141,39 @@ func HandleGetWeatherParseMailRu(w http.ResponseWriter, r *http.Request) {
 		slog.Error("Ошибка с куки:", err)
 	}
 
-	// Создаем HTTP-клиент с таймаутом
 	client := &http.Client{
 		Timeout: 15 * time.Second,
-		Jar:     jar, // Используйте cookie-менеджер
+		Jar:     jar,
 	}
 
-	// Создаем новый запрос
 	req, err := http.NewRequest("GET", searchURL, nil)
 	if err != nil {
 		slog.Error("Ошибка создания запроса:", err)
 	}
-
-	// Устанавливаем заголовки
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 	req.Header.Set("Accept-Language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7")
-	req.Header.Set("Cookie", "CONSENT=YES+cb; SOCS=CAESEwgDEgk0ODE3Nzk3MjQaAmVuIAEaBgiA_LuWBg") // Актуальные куки
+	req.Header.Set("Cookie", "CONSENT=YES+cb; SOCS=CAESEwgDEgk0ODE3Nzk3MjQaAmVuIAEaBgiA_LuWBg")
 
-	// Выполняем запрос
 	resp, err := client.Do(req)
 	if err != nil {
 		slog.Error("Ошибка HTTP-запроса:", err)
 	}
 	defer resp.Body.Close()
 
-	// Проверяем статус ответа
 	if resp.StatusCode != http.StatusOK {
 		slog.Error("статус ошибки:", resp.StatusCode, resp.Status)
 	}
 
-	// Читаем тело ответа
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		slog.Error("Ошибка чтения тела ответа:", err)
 	}
 
-	// Проверяем на наличие капчи
 	if strings.Contains(string(body), "CAPTCHA") {
 		slog.Error("Обнаружена капча. Попробуйте позже или смените IP")
 	}
 
-	// Парсим HTML
 	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(body))
 	if err != nil {
 		slog.Error("Ошибка парсинга HTML:", err)
